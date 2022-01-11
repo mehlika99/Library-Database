@@ -1,0 +1,315 @@
+--Table: Account
+CREATE TABLE Account (
+    Id_Account int  NOT NULL,
+    Reader_Id_Reader int  NOT NULL,
+    CONSTRAINT Account_pk PRIMARY KEY  (Id_Account)
+);
+
+-- Table: Author
+CREATE TABLE Author (
+    Id_Author int  NOT NULL,
+    Name varchar(100)  NOT NULL,
+    Surname varchar(100)  NOT NULL,
+    CONSTRAINT Author_pk PRIMARY KEY  (Id_Author)
+);
+-- Table: Book
+CREATE TABLE Book (
+    Id_Book int  NOT NULL,
+    Name varchar(200)  NOT NULL,
+    Type_of_book varchar(100)  NOT NULL,
+    Published_year int  NOT NULL,
+    CONSTRAINT Book_pk PRIMARY KEY  (Id_Book)
+);
+
+-- Table: Details_Of_Autheren_Book
+CREATE TABLE Details_Of_Autheren_Book (
+    Id_Details int  NOT NULL,
+    Author_Id_Author int  NOT NULL,
+    Book_Id_Book int  NOT NULL,
+    CONSTRAINT Details_Of_Autheren_Book_pk PRIMARY KEY  (Id_Details)
+);
+
+-- Table: Order
+CREATE TABLE "Order" (
+    Id_Order int  NOT NULL,
+    Date_take date  NOT NULL,
+    Date_give date  NOT NULL,
+    Book_Id_Book int  NOT NULL,
+    Reader_Id_Reader int  NOT NULL,
+    CONSTRAINT Order_pk PRIMARY KEY  (Id_Order)
+);
+
+-- Table: Reader
+CREATE TABLE Reader (
+    Id_Reader int  NOT NULL,
+    Name varchar(100)  NOT NULL,
+    Surname varchar(100)  NOT NULL,
+    Contac_tInfo int  NOT NULL,
+    date_of_birth date  NOT NULL,
+    CONSTRAINT Reader_pk PRIMARY KEY  (Id_Reader)
+);
+
+-- Foreign Keys
+
+ALTER TABLE Account ADD CONSTRAINT Account_Reader
+    FOREIGN KEY (Reader_Id_Reader)
+    REFERENCES Reader (Id_Reader);
+
+
+ALTER TABLE Details_Of_Autheren_Book ADD CONSTRAINT Details_Of_Autheren_Book_Author
+    FOREIGN KEY (Author_Id_Author)
+    REFERENCES Author (Id_Author);
+
+
+ALTER TABLE Details_Of_Autheren_Book ADD CONSTRAINT Details_Of_Autheren_Book_Book
+    FOREIGN KEY (Book_Id_Book)
+    REFERENCES Book (Id_Book);
+
+
+ALTER TABLE "Order" ADD CONSTRAINT Order_Book
+    FOREIGN KEY (Book_Id_Book)
+    REFERENCES Book (Id_Book);
+
+
+ALTER TABLE "Order" ADD CONSTRAINT Order_Reader
+    FOREIGN KEY (Reader_Id_Reader)
+    REFERENCES Reader (Id_Reader);
+    
+--Inserting data into the tables have already created.
+INSERT INTO Reader VALUES(1,'SMITH','MARK',3456728,TO_DATE('20-MAY-1996','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(2,'MARRY','PERL',1234567,TO_DATE('03-JUL-1999','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(3,'SANDRA','LOREN',908765,TO_DATE('20-MAY-2004','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(4,'HANS','SPENCER',4536782,TO_DATE('09-OCT-1995','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(5,'JACK','TRUE',8054632,TO_DATE('30-JUL-1999','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(6,'LAURA','SMITH',7465392,TO_DATE('20-MAY-1996','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(7,'ANDRIE','SAM',098425,TO_DATE('09-DEC-1995','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(8,'ALEX','ALLER',3487653,TO_DATE('20-JAN-1986','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(9,'MAX','TOMAS',6543782,TO_DATE('27-SEP-1998','DD-MON-YYYY'));
+INSERT INTO Reader VALUES(10,'DANIEL','PERL',7656374,TO_DATE('22-MAR-1995','DD-MON-YYYY'));
+
+INSERT INTO Author VALUES(1,'Louis','Sachar');
+INSERT INTO Author VALUES(2,'Peter','Sagal');
+INSERT INTO Author VALUES(3,'Carl','Sagan');
+INSERT INTO Author VALUES(4,'Sait','Faik');
+INSERT INTO Author VALUES(5,'Henry','Abbey');
+INSERT INTO Author VALUES(6,'John','Barnes');
+INSERT INTO Author VALUES(7,'Adele','Parks');
+INSERT INTO Author VALUES(8,'Julia','Quinn');
+INSERT INTO Author VALUES(9,'Leon','Uris');
+INSERT INTO Author VALUES(10,'Sarah','Zettel');
+
+INSERT INTO Book VALUES(1,'The Hobbit','Action',1987);
+INSERT INTO Book VALUES(2,'Romeo and Juliet','Classic',1990);
+INSERT INTO Book VALUES(3,'Saga','Comic',1678);
+INSERT INTO Book VALUES(4,'Sherlock Holmes','Crime',1567);
+INSERT INTO Book VALUES(5,'Hamlet','Drama',1983);
+INSERT INTO Book VALUES(6,'The Lion And The Mouse ','Fable',1870);
+INSERT INTO Book VALUES(7,'Rapunzel','Fairy Tale',1856);
+INSERT INTO Book VALUES(8,'Harry Potter','Fan-fiction',1988);
+INSERT INTO Book VALUES(9,'The Lord of The Rings','Fantasy',1995);
+INSERT INTO Book VALUES(10,'The Notebook','Romance',1877);
+
+INSERT INTO "Order" VALUES(1,TO_DATE('10-MAY-2019','DD-MON-YYYY'),TO_DATE('15-JUL-2019','DD-MON-YYYY'),1,1);
+INSERT INTO "Order" VALUES(2,TO_DATE('15-MAY-2019','DD-MON-YYYY'),TO_DATE('20-JUL-2019','DD-MON-YYYY'),2,2);
+INSERT INTO "Order" VALUES(3,TO_DATE('18-MAY-2019','DD-MON-YYYY'),TO_DATE('2-JUL-2019','DD-MON-YYYY'),3,3);
+INSERT INTO "Order" VALUES(4,TO_DATE('12-MAY-2019','DD-MON-YYYY'),TO_DATE('1-JUL-2019','DD-MON-YYYY'),4,4);
+INSERT INTO "Order" VALUES(5,TO_DATE('10-JUN-2019','DD-MON-YYYY'),TO_DATE('21-JUL-2019','DD-MON-YYYY'),5,5);
+INSERT INTO "Order" VALUES(6,TO_DATE('10-FEB-2019','DD-MON-YYYY'),TO_DATE('15-MAR-2019','DD-MON-YYYY'),6,6);
+INSERT INTO "Order" VALUES(7,TO_DATE('10-OCT-2019','DD-MON-YYYY'),TO_DATE('15-FEB-2019','DD-MON-YYYY'),7,7);
+INSERT INTO "Order" VALUES(8,TO_DATE('10-DEC-2019','DD-MON-YYYY'),TO_DATE('19-DEC-2019','DD-MON-YYYY'),8,8);
+INSERT INTO "Order" VALUES(9,TO_DATE('10-MAR-2019','DD-MON-YYYY'),TO_DATE('1-APR-2019','DD-MON-YYYY'),9,9);
+INSERT INTO "Order" VALUES(10,TO_DATE('11-MAY-2019','DD-MON-YYYY'),TO_DATE('12-JUL-2019','DD-MON-YYYY'),10,10);
+
+INSERT INTO Details_Of_Autheren_Book VALUES(1,1,1); 
+INSERT INTO Details_Of_Autheren_Book VALUES(2,2,2); 
+INSERT INTO Details_Of_Autheren_Book VALUES(3,3,3); 
+INSERT INTO Details_Of_Autheren_Book VALUES(4,4,4); 
+INSERT INTO Details_Of_Autheren_Book VALUES(5,5,5); 
+INSERT INTO Details_Of_Autheren_Book VALUES(6,6,6); 
+INSERT INTO Details_Of_Autheren_Book VALUES(7,7,7); 
+INSERT INTO Details_Of_Autheren_Book VALUES(8,8,8); 
+INSERT INTO Details_Of_Autheren_Book VALUES(9,9,9); 
+INSERT INTO Details_Of_Autheren_Book VALUES(10,10,10); 
+
+INSERT INTO Account VALUES(1,1);
+INSERT INTO Account VALUES(2,2);
+INSERT INTO Account VALUES(3,3);
+INSERT INTO Account VALUES(4,4);
+INSERT INTO Account VALUES(5,5);
+INSERT INTO Account VALUES(6,6);
+INSERT INTO Account VALUES(7,7);
+INSERT INTO Account VALUES(8,8);
+INSERT INTO Account VALUES(9,9);
+INSERT INTO Account VALUES(10,10);
+
+--SHOW ALL DATA INSERTED IN ALL TABLES;
+SELECT*FROM Reader;
+SELECT*FROM Author;
+SELECT*FROM Book;
+SELECT*FROM "Order";
+SELECT*FROM Details_Of_Autheren_Book;
+SELECT*FROM Account; 
+
+
+--Creating Queries 
+
+--Connecting Tables queries
+--1)show the reader who has ordered the book,with the name of book and type.
+SELECT Reader_Id_Reader,Name,Type_of_book
+FROM "Order",Book
+WHERE Id_Book="Order".Book_Id_Book;
+--2)display the id and name of reader and book names in ascending order.
+SELECT Id_Reader,NAME
+FROM Reader
+UNION
+SELECT Id_Book,NAME
+FROM Book
+ORDER BY NAME ASC;
+--ORDER BY 1,2; if i use this it gives ASC order for ID reader
+
+--Aggregating Functions
+--1)show that how many books taken by readers on 10-JUN-2019.
+SELECT Date_take,COUNT(Book_Id_Book) 
+FROM "Order"
+WHERE Date_take='10-JUN-2019'
+GROUP BY Date_take; 
+--2)show the oldest reader who borned after 09-OCT-1995.
+SELECT Id_Reader,MIN(date_of_birth)
+FROM READER
+GROUP BY Id_Reader
+HAVING MIN(date_of_birth)>'09-OCT-1995' ; 
+
+--Simple Subqueries
+--1)display the surname of author who has published his book earlier.
+SELECT SURNAME
+FROM Author,Book,Details_Of_Autheren_Book
+WHERE Id_Author=Details_Of_Autheren_Book.Author_Id_Author AND Id_Book=Details_Of_Autheren_Book.Book_Id_Book 
+AND Published_year IN(SELECT MIN(Published_year)
+                      FROM Book); 
+--2)display the id of accounts, with contact info and youngest reader.
+SELECT Id_Account,Contac_tInfo,MAX(date_of_birth)
+FROM Account,Reader
+WHERE Id_Reader=Account.Reader_Id_Reader
+GROUP BY Id_Account,Contac_tInfo
+HAVING MAX(date_of_birth)IN(SELECT MAX(date_of_birth)
+                            FROM Reader);
+
+
+--Correlated Subqueries
+--1)FIND SMITH ID ORDER AND HIS ID
+SELECT R.Id_Order,R.Reader_Id_Reader
+FROM "Order" R
+WHERE R.Reader_Id_Reader=(SELECT T.Id_Reader
+                         FROM Reader T
+                         WHERE T.NAME='SMITH');
+
+--2)SHOW READER ANOUNT FOR EACH ID OF ORDER
+SELECT O.Id_Order,(SELECT COUNT(Reader_Id_Reader)
+                   FROM Reader R
+                   WHERE R.Id_Reader=O.Reader_Id_Reader) AS READER_AMOUNT
+FROM "Order" O;
+                   
+
+
+
+
+
+
+
+
+
+--TRIGGERS
+
+--AFTER INSERT
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER NBook
+AFTER INSERT ON Book
+DECLARE X INTEGER;
+BEGIN
+SELECT COUNT(Name) INTO X FROM Book;
+DBMS_OUTPUT.PUT_LINE('TOTAL BOOK'||X||'');
+END;
+
+--AFTER UPDATE
+CREATE OR REPLACE TRIGGER READERCONTAC
+AFTER UPDATE OF Contac_tInfo ON Reader
+FOR EACH ROW
+DECLARE X INT;
+BEGIN
+IF:NEW.Contac_tInfo=:OLD.Contac_tInfo THEN
+DBMS_OUTPUT.PUT_LINE('IT HAS ALREADY ENTERED');
+END IF;
+END;
+
+--AFTER DELETE
+CREATE OR REPLACE TRIGGER Reader_BG
+AFTER DELETE ON Reader
+FOR EACH ROW
+DECLARE X INTEGER;
+BEGIN
+SELECT NVL(MAX(Id_Reader)+1,1) INTO X FROM Reader;
+INSERT INTO Reader VALUES(X, :OLD.NAME,:OLD.SURNAME, :OLD.Contac_tInfo, :OLD.date_of_birth);
+END;
+
+--BEFORE INSERT
+CREATE OR REPLACE TRIGGER SAMEBOOK
+BEFORE INSERT ON Book
+FOR EACH ROW
+DECLARE X INTEGER;
+BEGIN 
+SELECT COUNT(NAME) INTO X FROM Book WHERE NAME=:NEW.NAME;
+IF X != 0
+THEN RAISE_APPLICATION_ERROR(-2000,'THIS BOOK HAS ALREADY INSERT');
+END IF;
+END;
+
+--BEFORE UPDATE
+CREATE OR REPLACE TRIGGER CHANGE_Published_year
+BEFORE UPDATE
+ON Book
+FOR EACH ROW
+DECLARE X INT;
+BEGIN
+IF:NEW.Published_year=:OLD.Published_year THEN
+DBMS_OUTPUT.PUT_LINE('IT HAS ALREADY ENTERED');
+END IF;
+END;
+
+--BEFORE DELETE
+CREATE OR REPLACE TRIGGER NOAuthor
+BEFORE DELETE ON Author 
+FOR EACH ROW
+DECLARE X varchar(100);
+BEGIN
+SELECT SURNAME INTO X FROM Author,Details_Of_Autheren_Book
+WHERE Id_Author=Details_Of_Autheren_Book.Author_Id_Author ;
+DBMS_OUTPUT.PUT_LINE(''||X||'STOPPED WRITING');
+END;
+
+--BEFORE DELETE
+CREATE OR REPLACE TRIGGER DEREADER
+BEFORE DELETE ON Reader
+FOR EACH ROW
+BEGIN
+DELETE FROM "Order" WHERE Reader_Id_Reader =:OLD.Id_Reader ;
+END;
+
+
+
+--EXAMPLES AFTER INSERT
+INSERT INTO Book VALUES(11,'The Little Prience','Story',1945);
+DELETE FROM Book WHERE Id_Book=11;
+
+--EXAMPLE AFTER UPDATE
+UPDATE Reader SET Contac_tInfo=56532571 WHERE Id_Reader=1; 
+SELECT*FROM Reader;
+UPDATE Reader SET Contac_tInfo=3456728 WHERE Id_Reader=1; 
+
+--EXAMPLE BEFORE INSERT
+INSERT INTO Book VALUES(12,'THE LORD','KING',1950);
+DELETE FROM Book WHERE Id_Book=12; 
+
+--EXAMPLE BEFORE UPDATE
+UPDATE Book SET Published_year=1999 WHERE Id_Book=1;
+select*from book;
+UPDATE Book SET Published_year=1987 WHERE Id_Book=1;
